@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SkyBook | Flight Management</title>
+
+    <!-- Connect CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">✈ SkyBook</div>
+
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#flights">Flights</a>
+            <a href="#" id="myBookingsLink">My Bookings</a>
+        </div>
+    </nav>
+
+    <!-- Welcome Section -->
+    <header class="hero">
+        <h1>Find Your Next Flight</h1>
+        <p>Book flights easily, safely and at the best prices.</p>
+    </header>
+
+    <!-- Flight Search Form -->
+    <section class="search-box">
+
+        <div class="field">
+            <label for="from">From</label>
+            <input
+                id="from"
+                type="text"
+                placeholder="Departure city"
+            >
+        </div>
+
+        <div class="field">
+            <label for="to">To</label>
+            <input
+                id="to"
+                type="text"
+                placeholder="Destination city"
+            >
+        </div>
+
+        <div class="field">
+            <label for="date">Travel Date</label>
+            <input id="date" type="date">
+        </div>
+
+        <button type="button" id="searchButton">
+            Search Flights
+        </button>
+
+    </section>
+
+    <!-- Flight Results -->
+    <main class="section" id="flights">
+
+        <h2 id="resultsTitle">Popular Flights</h2>
+
+        <div class="flight-list" id="flightList">
+
+            <!-- Flight 1 -->
+            <article class="flight-card">
+                <h3>Delhi → Mumbai</h3>
+                <p>IndiGo · Non-stop</p>
+                <p>10:15 AM - 12:30 PM</p>
+                <div class="price">₹5,499</div>
+                <br>
+                <button type="button">Book Now</button>
+            </article>
+
+            <!-- Flight 2 -->
+            <article class="flight-card">
+                <h3>Bengaluru → Delhi</h3>
+                <p>Air India · Non-stop</p>
+                <p>06:45 AM - 09:10 AM</p>
+                <div class="price">₹6,999</div>
+                <br>
+                <button type="button">Book Now</button>
+            </article>
+
+            <!-- Flight 3 -->
+            <article class="flight-card">
+                <h3>Chennai → Hyderabad</h3>
+                <p>SpiceJet · Non-stop</p>
+                <p>07:20 PM - 08:50 PM</p>
+                <div class="price">₹3,999</div>
+                <br>
+                <button type="button">Book Now</button>
+            </article>
+
+        </div>
+
+    </main>
+    
+<!-- Seat Selection Screen -->
+<section class="seat-page" id="seatPage" hidden>
+
+    <button type="button" id="backButton" class="back-button">
+        ← Back to Flights
+    </button>
+
+    <h1>Choose Your Seat</h1>
+    <p id="selectedFlight">Select your preferred seat below.</p>
+
+    <div class="seat-legend">
+        <span><i class="legend-box available"></i> Available</span>
+        <span><i class="legend-box selected"></i> Selected</span>
+        <span><i class="legend-box occupied"></i> Occupied</span>
+    </div>
+
+    <div class="airplane">
+        <div class="cockpit">✈ FRONT OF AIRCRAFT</div>
+        <div class="seat-grid" id="seatGrid"></div>
+        <p class="seat-note">Select one seat to continue.</p>
+    </div>
+
+    <div class="seat-summary">
+        <p>Selected seat: <strong id="seatNumber">None</strong></p>
+        <p>Seat price: <strong id="seatPrice">₹0</strong></p>
+        <button type="button" id="continueButton" disabled>
+            Continue to Passenger Details
+        </button>
+    </div>
+
+</section>
+
+
+    <!-- Connect JavaScript -->
+     
+<!-- Passenger Details Screen -->
+<section class="passenger-page" id="passengerPage" hidden>
+
+    <button type="button" id="backToSeats" class="back-button">
+        ← Back to Seats
+    </button>
+
+    <h1>Passenger Details</h1>
+    <p>Please enter the details for your flight booking.</p>
+
+    <form id="passengerForm">
+
+        <div class="passenger-field">
+            <label for="passengerName">Full Name</label>
+            <input
+                type="text"
+                id="passengerName"
+                placeholder="Enter full name"
+                required
+                minlength="2"
+            >
+        </div>
+
+        <div class="passenger-field">
+            <label for="passengerEmail">Email Address</label>
+            <input
+                type="email"
+                id="passengerEmail"
+                placeholder="you@example.com"
+                required
+            >
+        </div>
+
+        <div class="passenger-field">
+            <label for="passengerPhone">Phone Number</label>
+            <input
+                type="tel"
+                id="passengerPhone"
+                placeholder="10-digit phone number"
+                pattern="[0-9]{10}"
+                maxlength="10"
+                required
+            >
+        </div>
+
+        <div class="passenger-summary">
+            <h3>Booking Summary</h3>
+            <p id="passengerFlight"></p>
+            <p id="passengerSeat"></p>
+            <p id="passengerTotal"></p>
+        </div>
+
+        <button type="submit" id="confirmBooking">
+            Confirm Booking
+        </button>
+
+    </form>
+
+</section>
+
+<!-- Booking Confirmation Screen -->
+<section class="confirmation-page" id="confirmationPage" hidden>
+
+    <div class="confirmation-card">
+        <div class="success-icon">✓</div>
+        <h1>Booking Confirmed!</h1>
+        <p>Your demo booking has been created successfully.</p>
+
+        <div id="confirmationDetails"></div>
+
+        <p class="booking-reference">
+            Booking Reference:
+            <strong id="bookingReference"></strong>
+        </p>
+
+        <button type="button" id="newBooking">
+            Book Another Flight
+        </button>
+    </div>
+
+</section>
+
+<!-- My Bookings Screen -->
+<section class="my-bookings-page" id="myBookingsPage" hidden>
+
+    <button type="button" id="backFromBookings" class="back-button">
+        ← Back to Home
+    </button>
+
+    <h1>My Bookings</h1>
+    <p>View and manage your saved demo reservations.</p>
+
+    <div id="bookingsList"></div>
+
+    <p id="noBookingsMessage">
+        You don't have any bookings yet. Book a flight to see it here.
+    </p>
+
+</section>
+
+
+    <script src="script.js"></script>
+    
+
+</body>
+</html>
